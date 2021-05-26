@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CosplayHubDB" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CosplayHubDB.mdf;Integrated Security=True;MultipleActiveResultSets=True;Connect Timeout=30;Application Name=EntityFramework" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="CosplayHubDBConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.CartProducts" Member="CartProducts">
+    <Type Name="CartProduct">
+      <Column Name="CustomerID" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ProductOption" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Customer_CartProduct" Member="Customer" ThisKey="CustomerID" OtherKey="CustomerID" Type="Customer" IsForeignKey="true" />
+      <Association Name="ProductOption_CartProduct" Member="ProductOption1" ThisKey="ProductOption,ProductID" OtherKey="ProductOption1,ProductID" Type="ProductOption" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Wishlists" Member="Wishlists">
+    <Type Name="Wishlist">
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CustomerID" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Customer_Wishlist" Member="Customer" ThisKey="CustomerID" OtherKey="CustomerID" Type="Customer" IsForeignKey="true" />
+      <Association Name="Product_Wishlist" Member="Product" ThisKey="ProductID" OtherKey="ProductID" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Cosplayers" Member="Cosplayers">
+    <Type Name="Cosplayer">
+      <Column Name="CosplayerID" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CosplayerName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CosplayerDescription" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="CosplayerProfilePic" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="CosplayerEmail" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CosplayerPassword" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Association Name="Cosplayer_Product" Member="Products" ThisKey="CosplayerID" OtherKey="CosplayerID" Type="Product" />
+      <Association Name="Cosplayer_Order" Member="Orders" ThisKey="CosplayerID" OtherKey="CosplayerID" Type="Order" />
+      <Association Name="Image_Cosplayer" Member="Image" ThisKey="CosplayerProfilePic" OtherKey="ImageID" Type="Image" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Customers" Member="Customers">
+    <Type Name="Customer">
+      <Column Name="CustomerID" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CustomerName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CustomerEmail" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CustomerProfilePic" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="CustomerPassword" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Association Name="Customer_CartProduct" Member="CartProducts" ThisKey="CustomerID" OtherKey="CustomerID" Type="CartProduct" />
+      <Association Name="Customer_Wishlist" Member="Wishlists" ThisKey="CustomerID" OtherKey="CustomerID" Type="Wishlist" />
+      <Association Name="Customer_Order" Member="Orders" ThisKey="CustomerID" OtherKey="CustomerID" Type="Order" />
+      <Association Name="Image_Customer" Member="Image" ThisKey="CustomerProfilePic" OtherKey="ImageID" Type="Image" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Images" Member="Images">
+    <Type Name="Image">
+      <Column Name="ImageID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ImagePath" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="Image_Cosplayer" Member="Cosplayers" ThisKey="ImageID" OtherKey="CosplayerProfilePic" Type="Cosplayer" />
+      <Association Name="Image_Customer" Member="Customers" ThisKey="ImageID" OtherKey="CustomerProfilePic" Type="Customer" />
+      <Association Name="Image_ProductImage" Member="ProductImages" ThisKey="ImageID" OtherKey="ImageID" Type="ProductImage" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OrderProducts" Member="OrderProducts">
+    <Type Name="OrderProduct">
+      <Column Name="OrderID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ProductOption" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="ProductOption_OrderProduct" Member="ProductOption1" ThisKey="ProductOption,ProductID" OtherKey="ProductOption1,ProductID" Type="ProductOption" IsForeignKey="true" />
+      <Association Name="Order_OrderProduct" Member="Order" ThisKey="OrderID" OtherKey="OrderID" Type="Order" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OrderStatus" Member="OrderStatus">
+    <Type Name="OrderStatus">
+      <Column Name="OrderStatusID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="OrderStatusDescription" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="OrderStatus_Order" Member="Orders" ThisKey="OrderStatusID" OtherKey="OrderStatus" Type="Order" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProductImages" Member="ProductImages">
+    <Type Name="ProductImage">
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ImageID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Image_ProductImage" Member="Image" ThisKey="ImageID" OtherKey="ImageID" Type="Image" IsForeignKey="true" />
+      <Association Name="Product_ProductImage" Member="Product" ThisKey="ProductID" OtherKey="ProductID" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProductOptions" Member="ProductOptions">
+    <Type Name="ProductOption">
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ProductOption" Member="ProductOption1" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StockNo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="ProductOption_CartProduct" Member="CartProducts" ThisKey="ProductOption1,ProductID" OtherKey="ProductOption,ProductID" Type="CartProduct" />
+      <Association Name="ProductOption_OrderProduct" Member="OrderProducts" ThisKey="ProductOption1,ProductID" OtherKey="ProductOption,ProductID" Type="OrderProduct" />
+      <Association Name="Product_ProductOption" Member="Product" ThisKey="ProductID" OtherKey="ProductID" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Products" Member="Products">
+    <Type Name="Product">
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CosplayerID" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ProductDescription" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="ProductSourceMaterial" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ProductType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProductPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Association Name="Product_Wishlist" Member="Wishlists" ThisKey="ProductID" OtherKey="ProductID" Type="Wishlist" />
+      <Association Name="Product_ProductImage" Member="ProductImages" ThisKey="ProductID" OtherKey="ProductID" Type="ProductImage" />
+      <Association Name="Product_ProductOption" Member="ProductOptions" ThisKey="ProductID" OtherKey="ProductID" Type="ProductOption" />
+      <Association Name="Cosplayer_Product" Member="Cosplayer" ThisKey="CosplayerID" OtherKey="CosplayerID" Type="Cosplayer" IsForeignKey="true" />
+      <Association Name="ProductType_Product" Member="ProductType1" ThisKey="ProductType" OtherKey="ProductTypeID" Type="ProductType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProductTypes" Member="ProductTypes">
+    <Type Name="ProductType">
+      <Column Name="ProductTypeID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductTypeDesc" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="ProductType_Product" Member="Products" ThisKey="ProductTypeID" OtherKey="ProductType" Type="Product" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Orders" Member="Orders">
+    <Type Name="Order">
+      <Column Name="OrderID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CustomerID" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="TotalPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="OrderStatus" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CosplayerID" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="OrderDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="TrackingNo" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Association Name="Order_OrderProduct" Member="OrderProducts" ThisKey="OrderID" OtherKey="OrderID" Type="OrderProduct" />
+      <Association Name="Cosplayer_Order" Member="Cosplayer" ThisKey="CosplayerID" OtherKey="CosplayerID" Type="Cosplayer" IsForeignKey="true" />
+      <Association Name="Customer_Order" Member="Customer" ThisKey="CustomerID" OtherKey="CustomerID" Type="Customer" IsForeignKey="true" />
+      <Association Name="OrderStatus_Order" Member="OrderStatus1" ThisKey="OrderStatus" OtherKey="OrderStatusID" Type="OrderStatus" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

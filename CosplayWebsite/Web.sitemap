@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+  <siteMapNode url="Default.aspx" title="Home"  description="Home">
+    <siteMapNode url="ViewOrder.aspx" title="View Order" description="View Order"></siteMapNode>
+    <siteMapNode url="ViewProduct.aspx" title="Product Details" description="Product Details"></siteMapNode>
+    <siteMapNode url="ViewCosplayerGallery.aspx" title="Cosplayer Gallery" description="Cosplayer Gallery"></siteMapNode>
+    <siteMapNode url="Cosplayer.aspx" title="Profile"  description="Cosplayer Profile">
+      <siteMapNode url="ManageOrders.aspx" title="Manage Orders" description="Manage Orders"></siteMapNode>
+      <siteMapNode url="ManageStocks.aspx" title="Manage Stocks" description="Manage Stocks"></siteMapNode>
+    </siteMapNode>
+    <siteMapNode url="CustomerProfile.aspx" title="Profile"  description="Customer Profile">
+      <siteMapNode url="Cart.aspx" title="Cart" description="Cart">
+        <siteMapNode url="OrderSummary.aspx" title="Order Summary" description="Order Summary"></siteMapNode>
+      </siteMapNode>
+      <siteMapNode url="Wishlist.aspx" title="Wishlist" description="Wishlist"></siteMapNode>
+      <siteMapNode url="PurchaseHistory.aspx" title="Purchase History" description="Purchase History"></siteMapNode>
+    </siteMapNode>
+    <siteMapNode url="Login.aspx" title="Sign in/Register"  description="Sign in/Register">
+      <siteMapNode url="UserRegister.aspx" title="New User Registration" description="New User Registration">
+        <siteMapNode url="CustomerRegister.aspx" title="Customer Registration" description="Customer Registration"></siteMapNode>
+        <siteMapNode url="CosplayerRegister.aspx" title="Cosplayer Registration" description="Cosplayer Registration"></siteMapNode>
+      </siteMapNode>
+    </siteMapNode>
+  </siteMapNode>
+</siteMap>
